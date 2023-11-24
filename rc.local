@@ -1,0 +1,22 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+sudo /home/pi/rpi-rgb-led-matrix/examples-api-use/clock -f /home/pi/rpi-rgb-led-matrix/fonts/7x13.bdf --led-chain=1 --led-gpio-mapping=adafruit-hat -d "%I:%M:%S" --led-cols=64 -b 15 -x 4 -c 255,69,0 -D "%a,%b%d" -C 255,223,0 &
+
+exit 0
